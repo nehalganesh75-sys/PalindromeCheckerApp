@@ -1,43 +1,40 @@
-public class PalindromeCheckerApp {
-}
 /**
  * ---------------------------------------------------------
- * MAIN CLASS – UseCase1PalindromeCheckerApp
+ * MAIN CLASS – UseCase2PalindromeCheckerApp
  * ---------------------------------------------------------
  *
- * Use Case 1: Application Entry & Welcome Message
+ * Use Case 2: Hardcoded Palindrome Validation
  *
  * Description:
- * This class represents the entry point of the
- * Palindrome Checker Management System.
- *
- * At this stage, the application:
- * - Starts execution from the main() method
- * - Displays a welcome message
- * - Shows application version
- *
- * No palindrome logic is implemented yet.
- *
- * The goal is to establish a clear startup flow.
+ * This class demonstrates basic palindrome validation
+ * using a hardcoded string value.
  *
  * @author Developer
- * @version 1.0
+ * @version 2.0
  */
 
-public class UseCase1PalindromeCheckerApp {
+public class PalindromeCheckerApp {
 
-    /**
-     * Application entry point.
-     * This is the first method executed by the JVM
-     * when the program starts.
-     *
-     * @param args Command-line arguments
-     */
     public static void main(String[] args) {
 
-        System.out.println("Welcome to the Palindrome Checker Management System");
-        System.out.println("Version : 1.0");
-        System.out.println("System initialized successfully.");
+        String input = "madam";   // Hardcoded string
+        boolean isPalindrome = true;
 
+        // Compare characters from both ends
+        for (int i = 0; i < input.length() / 2; i++) {
+            if (input.charAt(i) != input.charAt(input.length() - 1 - i)) {
+                isPalindrome = false;
+                break;
+            }
+        }
+
+        // Display result
+        System.out.println("Word to check: " + input);
+
+        if (isPalindrome) {
+            System.out.println("Result: It is a Palindrome.");
+        } else {
+            System.out.println("Result: It is NOT a Palindrome.");
+        }
     }
 }
