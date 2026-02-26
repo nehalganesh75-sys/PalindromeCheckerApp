@@ -1,51 +1,49 @@
 import java.util.Stack;
 
-class PalindromeChecker {
+// MAIN CLASS
+public class PalindromeCheckerApp {
 
-    // Public method exposed to outside
-    public boolean checkPalindrome(String input) {
+    public static void main(String[] args) {
 
-        // Pre-processing (ignore spaces & case)
-        String normalized = input.replaceAll("\\s+", "").toLowerCase();
+        String input = "Level";
 
-        return isPalindromeUsingStack(normalized);
+        // Inject strategy at runtime
+        PalindromeStrategy strategy = new StackStrategy();
+
+        boolean result = strategy.check(input);
+
+        System.out.println("Input : " + input);
+        System.out.println("Is Palindrome? : " + result);
     }
+}
 
-    // Private helper method (internal logic hidden)
-    private boolean isPalindromeUsingStack(String str) {
+
+// STRATEGY INTERFACE
+interface PalindromeStrategy {
+    boolean check(String input);
+}
+
+
+// STACK-BASED STRATEGY IMPLEMENTATION
+class StackStrategy implements PalindromeStrategy {
+
+    @Override
+    public boolean check(String input) {
 
         Stack<Character> stack = new Stack<>();
-        char[] arr = str.toCharArray();
 
-        // Push all characters into stack
-        for (char ch : arr) {
-            stack.push(ch);
+        // Push all characters
+        for (char c : input.toCharArray()) {
+            stack.push(Character.toLowerCase(c));
         }
 
-        // Compare stack pop with original order
-        for (char ch : arr) {
-            if (ch != stack.pop()) {
+        // Compare while popping
+        for (char c : input.toCharArray()) {
+            if (Character.toLowerCase(c) != stack.pop()) {
                 return false;
             }
         }
 
         return true;
-    }
-}
-
-
-public class PalindromeCheckerApp {
-
-    public static void main(String[] args) {
-
-        PalindromeChecker checker = new PalindromeChecker();
-
-        String input = "Never odd or even";
-
-        if (checker.checkPalindrome(input)) {
-            System.out.println("Palindrome");
-        } else {
-            System.out.println("Not a Palindrome");
-        }
     }
 }
