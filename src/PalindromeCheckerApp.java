@@ -1,35 +1,49 @@
-public class PalindromeCheckerApp {
+import java.util.Stack;
 
-    // Method to check palindrome ignoring spaces and case
-    public static boolean isPalindrome(String input) {
+class PalindromeChecker {
 
-        // 1️⃣ Normalize string (remove spaces and convert to lowercase)
+    // Public method exposed to outside
+    public boolean checkPalindrome(String input) {
+
+        // Pre-processing (ignore spaces & case)
         String normalized = input.replaceAll("\\s+", "").toLowerCase();
 
-        // 2️⃣ Convert to char array (optional, for clarity)
-        char[] arr = normalized.toCharArray();
+        return isPalindromeUsingStack(normalized);
+    }
 
-        int start = 0;
-        int end = arr.length - 1;
+    // Private helper method (internal logic hidden)
+    private boolean isPalindromeUsingStack(String str) {
 
-        // Two-pointer comparison
-        while (start < end) {
-            if (arr[start] != arr[end]) {
+        Stack<Character> stack = new Stack<>();
+        char[] arr = str.toCharArray();
+
+        // Push all characters into stack
+        for (char ch : arr) {
+            stack.push(ch);
+        }
+
+        // Compare stack pop with original order
+        for (char ch : arr) {
+            if (ch != stack.pop()) {
                 return false;
             }
-            start++;
-            end--;
         }
 
         return true;
     }
+}
+
+
+public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
 
-        String input = "A man a plan a canal Panama";
+        PalindromeChecker checker = new PalindromeChecker();
 
-        if (isPalindrome(input)) {
-            System.out.println("Palindrome (ignoring spaces & case)");
+        String input = "Never odd or even";
+
+        if (checker.checkPalindrome(input)) {
+            System.out.println("Palindrome");
         } else {
             System.out.println("Not a Palindrome");
         }
